@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"net/http"
 
-	"golang-mongodb/models/user"
 	"github.com/julienschmidt/httprouter"
 
 	"gopkg.in/mgo.v2"
@@ -31,7 +30,7 @@ func (uc UserController) GetUser (w http.ResponseWriter, r *http.Request){
 
 	u := models.User{}
 
-	if err := uc.Session.DB("golang-mongodb").C("users").FindId("oid").One(&u); err !=nil{
+	if err := uc.Session.DB("mongo-golang").C("users").FindId("oid").One(&u); err !=nil{
 		w.WriteHeader(404)
 		return
 	}
@@ -53,7 +52,7 @@ func (uc UserController) CreateUser (w http.ResponseWriter, r *http.Request, _ h
 
 	u.Id = bson.NewObjectId()
 
-	uc.session.DB("golang-mongodb").C("users").Insert(u)
+	uc.session.DB("mongo-golang").C("users").Insert(u)
 
 	uj, err := json.Marshal(u)
 
@@ -77,7 +76,7 @@ func (uc UserController) DeleteUser(w httprouter, r *http.Request, _ httprouter.
 
 	oid := bson.ObjectIdHex(id)
 
-	if err := uc.session.DB("golang-mongodb").C("user").RemoveId(oid), err != nil{
+	if err := uc.session.DB("mongo-golang").C("user").RemoveId(oid), err != nil{
 		w.WriteHeader(404)
 	};
 

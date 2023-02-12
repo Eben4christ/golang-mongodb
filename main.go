@@ -5,7 +5,7 @@ import (
 	"gopkg.in/mgo.v2"
 	"net/http"
 
-	"golang-mongodb/controllers/user"
+	"github.com/eben4christ/golang-mongodb/controllers"
 )
 
 func main(){
